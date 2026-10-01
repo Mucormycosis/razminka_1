@@ -1,8 +1,19 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders central button and four cells', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByLabelText('menu')).toBeInTheDocument();
+  ['G1', 'G2', 'G3', 'G4'].forEach((key) => {
+    expect(screen.getByLabelText(key)).toBeInTheDocument();
+  });
+});
+
+test('cells appear on hover over hub', () => {
+  const { container } = render(<App />);
+  const hub = container.querySelector('.hub');
+  fireEvent.mouseEnter(hub);
+  expect(hub.classList.contains('is-revealed')).toBe(true);
+  fireEvent.mouseLeave(hub);
+  expect(hub.classList.contains('is-revealed')).toBe(false);
 });
