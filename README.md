@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Minimal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Интерфейс с одной центральной кнопкой и радиальным меню из четырёх ячеек G1–G4 на фоне генеративного волнового поля.
 
-## Available Scripts
+Стек: React 19 + Create React App, чистый CSS, без внешних зависимостей и UI-библиотек.
 
-In the project directory, you can run:
+## Запуск
 
-### `npm start`
+```bash
+npm install     # один раз, ставит зависимости
+npm start       # режим разработки → http://localhost:3000
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Другие команды:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Команда | Что делает |
+|---|---|
+| `npm start` | Запускает дев-сервер с горячей перезагрузкой |
+| `npm test` | Прогоняет тесты (`src/App.test.js`) в watch-режиме |
+| `npm run build` | Собирает оптимизированную сборку в папку `build` |
+| `npm run eject` | Распаковать конфигурацию CRA — операция необратимая |
 
-### `npm test`
+Важно: команды выполняются из папки проекта. Если ты в `Desktop\react`, сначала `cd my-app`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Структура
 
-### `npm run build`
+```
+src/
+  App.js                  корневой компонент: Background + Hub
+  App.css                 стили кнопки и ячеек G1–G4
+  index.css               токены темы, базовые стили, body
+  Background.css          фон: космос, звёзды, переход, волновое поле
+  components/
+    Hub.js                центральная кнопка, радиальное меню, открытие игр
+    Background.js         слои фона
+    WaveField.js          генерация и анимация SVG-волн
+  games/
+    G1.js G2.js G3.js G4.js   заготовки будущих мини-игр
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Что где настраивается
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Центральная кнопка и G1–G4** — `src/App.css`
+- `--core-size`, `--cell-size`, `--spread` в блоке `.hub` — размеры и расстояние между ячейками
+- `@keyframes core-breathe` — «дыхание» кнопки при наведении
+- `--delay` в `Hub.js` — задержка появления ячеек (по умолчанию 100мс на каждую)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Фон** — `src/Background.css`
+- `.sky` — базовый градиент космоса
+- `.sky::before` / `.sky::after` — звёзды: список координат в `radial-gradient`
+- `.ripples` — высота и `mask-image`, отвечающие за мягкий переход к волнам
 
-### `npm run eject`
+**Волны** — `src/components/WaveField.js`
+- `LAYERS` — слои: число точек, `variance` (сила изгиба), `duration` (цикл), цвет, прозрачность
+- Анимация идёт через `requestAnimationFrame`, который перезаписывает атрибут `d` у пяти SVG-путей
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Заготовки мини-игр** — `src/games/G1.js` … `G4.js`
+Каждый файл экспортирует компонент с `return null`. Игра пишется внутри своего файла — компонент уже подключён к `Hub.js`, по клику на ячейку он монтируется на странице. `Esc` закрывает его.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Анимации и доступность
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Все анимации фона и кнопки останавливаются при `prefers-reduced-motion: reduce`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Если волны не двигаются — проверь настройку Windows: **Персонализация → Анимации → Эффекты анимации**. Когда она выключена, браузер сообщает сайту `prefers-reduced-motion: reduce`, и `WaveField.js` рисует статичный кадр.
 
-## Learn More
+## Работа с Git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Коммиты пишем по-русски, коротко и по делу — что изменилось, а не как именно переписано.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git add .
+git commit -m "Добавил волновое поле на фоне"
+git push
+```
 
-### Code Splitting
+Примеры хороших сообщений:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `Добавил волновое поле на фоне`
+- `Исправил плавное появление ячеек G1–G4`
+- `Убрал лишние отступы в кнопке`
