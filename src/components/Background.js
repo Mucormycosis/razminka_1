@@ -1,11 +1,11 @@
 import WaveField from './WaveField';
 import '../Background.css';
 
-export default function Background() {
+export default function Background({ paused = false }) {
   return (
-    <div className="sky" aria-hidden="true">
+    <div className={`sky${paused ? ' is-paused' : ''}`} aria-hidden="true">
       <div className="ripples">
-        <WaveField />
+        <WaveField paused={paused} />
       </div>
     </div>
   );

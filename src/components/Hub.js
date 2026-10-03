@@ -6,11 +6,10 @@ import G4 from '../games/G4';
 
 const GAMES = { G1, G2, G3, G4 };
 
-export default function Hub() {
+export default function Hub({ activeGame, onSelect }) {
   const [revealed, setRevealed] = useState(false);
-  const [activeGame, setActiveGame] = useState(null);
 
-  const close = useCallback(() => setActiveGame(null), []);
+  const close = useCallback(() => onSelect(null), [onSelect]);
 
   useEffect(() => {
     if (!activeGame) return undefined;
@@ -29,6 +28,7 @@ export default function Hub() {
     <div className="stage">
       <div
         className={`hub${revealed ? ' is-revealed' : ''}`}
+        data-testid="hub"
         onMouseEnter={() => setRevealed(true)}
         onMouseLeave={() => setRevealed(false)}
       >
@@ -39,7 +39,7 @@ export default function Hub() {
               type="button"
               className={`cell cell--${i + 1}`}
               style={{ '--delay': `${i * 100}ms` }}
-              onClick={() => setActiveGame(key)}
+              onClick={() => onSelect(key)}
               aria-label={key}
             >
               {key}

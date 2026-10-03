@@ -10,8 +10,8 @@ test('renders central button and four cells', () => {
 });
 
 test('cells appear on hover over hub', () => {
-  const { container } = render(<App />);
-  const hub = container.querySelector('.hub');
+  render(<App />);
+  const hub = screen.getByTestId('hub');
   fireEvent.mouseEnter(hub);
   expect(hub.classList.contains('is-revealed')).toBe(true);
   fireEvent.mouseLeave(hub);

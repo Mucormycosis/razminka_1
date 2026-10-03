@@ -45,8 +45,13 @@ function blend(from, to, t) {
   return from.map(([x, y], i) => [x, y + (to[i][1] - y) * t]);
 }
 
-export default function WaveField() {
+export default function WaveField({ paused = false }) {
   const pathsRef = useRef([]);
+  const pausedRef = useRef(paused);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
 
   useEffect(() => {
     const reduced =
@@ -74,7 +79,7 @@ export default function WaveField() {
     let frame = 0;
 
     const tick = (now) => {
-      if (!document.hidden) {
+      if (!document.hidden && !pausedRef.current) {
         states.forEach((state, i) => {
           if (!state.started) state.started = now;
 

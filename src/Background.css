@@ -10,6 +10,12 @@
     radial-gradient(120% 80% at 88% 30%, rgba(24, 48, 132, 0.36) 0%, rgba(24, 48, 132, 0) 64%),
     radial-gradient(150% 100% at 50% 104%, rgba(22, 78, 158, 0.5) 0%, rgba(22, 78, 158, 0) 66%),
     linear-gradient(180deg, #04061a 0%, #06102f 26%, #08173f 48%, #0a1f4c 66%, #0a2350 82%, #081d45 100%);
+  transition: opacity 260ms var(--ease);
+}
+
+/* пока открыта игра, фон притихает и не крутит анимацию */
+.sky.is-paused {
+  opacity: 0.28;
 }
 
 .sky::before,
