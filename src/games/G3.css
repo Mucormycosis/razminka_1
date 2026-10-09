@@ -1,0 +1,70 @@
+.g3 {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  background: #050814;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  color: #dfe6ff;
+}
+
+.g3__panel {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.g3__hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #0a1026;
+  border: 1px solid #1a2a5a;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.g3__stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.g3__label {
+  color: #8aa4d8;
+}
+
+.g3__value {
+  color: #f2c94c;
+  font-size: 18px;
+}
+
+.g3__hearts {
+  color: #f26d6d;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.g3__board {
+  background: #050814;
+  border: 2px solid #1a2a5a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(6, 18, 54, 0.6), inset 0 0 40px rgba(6, 18, 54, 0.4);
+}
+
+.g3__board canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.g3__hint {
+  text-align: center;
+  font-size: 12px;
+  color: #6a8ab8;
+  line-height: 1.5;
+}
