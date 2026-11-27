@@ -3,7 +3,7 @@ import './G1.css';
 
 /*  НАСТРОЙКИ  */
 
-const ROWS = 15n;
+const ROWS = 15;
 const COLS = 10; 
 const CELL = 32;
 const LINE_POINTS = [0, 100, 300, 500, 800]; // очки за 1, 2, 3, 4 линии разом
