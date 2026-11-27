@@ -23,7 +23,11 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
+
+      - name: Build React app
+        run: npm run build
+        env:
+          CI: false
 
       - uses: actions/configure-pages@v5
 
