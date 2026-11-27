@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import G1 from './G1';
 
-/* jsdom не умеет рисовать на canvas — подменяем контекст на пустышки */
+
 const contextStub = () => ({
   clearRect: jest.fn(),
   fillRect: jest.fn(),

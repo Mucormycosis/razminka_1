@@ -74,6 +74,7 @@ export default function G4() {
   useEffect(() => {
     if (phase !== 'play') return undefined;
 
+    const pressedKeys = pressedRef.current;
     const cfg = DIFFICULTIES[difficulty];
     const game = {
       cfg,
@@ -286,7 +287,7 @@ export default function G4() {
       window.removeEventListener('blur', onBlur);
       timersRef.current.forEach((t) => window.clearTimeout(t));
       timersRef.current = [];
-      pressedRef.current.clear();
+      pressedKeys.clear();
       gameRef.current = null;
     };
   }, [phase, difficulty, runId, start, flash, setPausedBoth]);
